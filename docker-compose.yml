@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    image: gvenzl/oracle-xe
+    container_name: oracle-db
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    environment:
+      - ORACLE_PASSWORD=130205
+
+  spring-app:
+    build: .
+    container_name: beachreport-spring-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@oracle-db:1521:XE
+      - SPRING_DATASOURCE_USERNAME=rm551808
+      - SPRING_DATASOURCE_PASSWORD=130205
+    depends_on:
+      - db
+
+networks:
+  task-net:
+
+volumes:
+  oracle-data:
