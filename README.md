@@ -1,7 +1,5 @@
 # Beach Report
 
-Todos os endpoints estão disponíveis em uma coleção para teste via Postman. Utilizando o arquivo endpoints-postman.json localizado na pasta raíz do projeto.
-
 ## Integrantes
 ### Angélica Ferreira de Matos Melo - RM550776 - Planejamento, Definição do escopo do projeto, Desenvolvimento, Homologação/Testes, Deploy/Go Live.
 ### Ricardo Yuri Gonçalves Domingues - RM551808 - Planejamento, Definição do escopo do projeto, Desenvolvimento.
@@ -9,194 +7,77 @@ Todos os endpoints estão disponíveis em uma coleção para teste via Postman. 
 ### Matheus Roberto Aparecido de M.C.P de Souza - RM98581 - Planejamento, Definição do escopo do projeto.
 ### Lucca Rinaldi Valladão de Freitas - RM98207 - Planejamento, Definição do escopo do projeto.
 
-## Como rodar o projeto
-Primeiramente certifique-se que seu computador possui o Java 17 instalado, assim como a versão mais recente do Maven.
+## Objetivo
 
-Clone este repositório na sua pasta de preferência. Utilizando um terminal, digite o seguinte comando:
+O objetivo da solução é garantir que as atividades humanas nos oceanos e influentes (como praias, rios e etc) sejam ecologicamente responsáveis, socialmente inclusivas e economicamente viáveis a longo prazo. Os oceanos enfrentam desafios, desde a destruição de habitats marinhos, até a poluição e as mudanças climáticas, portanto a mobilização da população e da tecnologia para a preservação é mais que necessária. 
 
-    mvn spring-boot:run
+## Descritivo da solução
 
-Caso esteja usando uma IDE, abra o projeto na seu editor de preferência, localize a classe **BeachReportApplication** e execute o projeto através do método main localizado nesta classe.
+A solução consiste em um aplicativo de cidadania científica para monitoramento de praias: Aplicativo móvel que permite aos cidadãos reportar condições ambientais e momentâneas das praias. Portanto o sistema tem como objetivo facilitar o monitoramento das condições da praia, envolvendo a população no relato do estado das praias. Todos os dados relatados, tanto do usuário que relatou, quanto do relato serão compartilhados com as entidades locais responsáveis pela preservação ambiental, limpeza pública e etc, para que eles possam tomar providências sobre o ocorrido. O público alvo da solução são os residentes de praias e possíveis turistas que queiram contribuir para a preservação das praias. 
+O sistema terá como funcionalidades: Compartilhar localização, relatar descritivo do que está acontecendo (como acúmulo de lixo em algum canto da praia), enviar fotos em tempo real dos acontecimentos, feedbacks públicos, portanto caso alguém relate algo, a população poderá apoiar ou não o relato, caso estejam no local também, para dar mais credibilidade ou não, ranking de confiabilidade dos usuários, entre outros (funcionalidades básicas sistemas, como cadastro de usuários). 
 
-Utilize o arquivo *endpoints-postman.json* localizado na pasta raíz do projeto para realizar testes locais das chamadas de API persistência de informações no banco de dados.
+## Regras de negócio
 
-## Endpoints
-
-### Usuário
-
-GET /usuario
-
-Lista todos os usuários cadastrados no sistema.
-
-*Códigos de status*
-- 200 sucesso
-
----
-GET /usuario/{id}
-
-Retorna os detalhes de um usuário com o 'id' informado.
-
-*Códigos de status*
-- 200 sucesso
-- 404 id não encontrado
-
----
-POST /usuario
-
-Cadastrar um novo usuário.
-
-| campo    | tipo   | obrigatório | descrição 
-|----------|--------|------------|-----------
-| cpf      | long   | sim        | um cpf para identificar a cadastro 
-| senha    | string | sim        | senha escolhida pelo usuário 
-| email    | string | sim        | e-mail de usuário
-| cep      | long   | sim        | CEP de usuário
-| ddd      | long   | sim        | DDD de usuário
-| telefone | long   | sim        | telefone de usuário
-
-```json
-{
-  "cpf":12345,
-  "senha":"12345",
-  "email":"email@email.com",
-  "cep":12345,
-  "ddd":11,
-  "telefone":12345
-}
-```
-
-*Códigos de status*
-- 201 criado com sucesso
-- 400 validação falhou
-
----
-DELETE /usuario/{id}
-
-Apaga o usuário com o 'id' informado.
-
-*Códigos de status*
-- 204 apagado com sucesso
-- 404 id não encontrado
-
----
-PUT /usuario/{id}
-
-Altera o usuário com o 'id' informado.
-
-| campo | tipo | obrigatório | descrição 
-|-------|------|-------------|-----------
-| senha    | string | sim        | senha escolhida pelo usuário 
-| email    | string | sim        | e-mail de usuário
-| cep      | long   | sim        | CEP de usuário
-| ddd      | long   | sim        | DDD de usuário
-| telefone | long   | sim        | telefone de usuário
-
-*Códigos de status*
-- 200 sucesso
-- 404 id não encontrado
-- 400 validação falhou
-```json
-{
-  "senha":"NovaSenha",
-  "email":"novo-email@email.com",
-  "cep":54321,
-  "ddd":54321,
-  "telefone":54321
-}
-```
-
-### Relato
-
-GET /relato
-
-Lista todas os relatos cadastrados no sistema.
-
-*Códigos de status*
-- 200 sucesso
-
----
-GET /relato/{id}
-
-Retorna os detalhes de um relato com o 'id' informado.
-
-*Códigos de status*
-- 200 sucesso
-- 404 id não encontrado
-
----
-POST /relato
-
-Cadastrar um novo relato.
-
-| campo           | tipo   | obrigatório | descrição 
-|-----------------|--------|------------|-----------
-| relato          | String | sim        | descrição de um relato 
-| latitude        | double | sim        | número representativo de latitude 
-| longitude       | double | sim        | número representativo de longitude
-| praia_suja      | char   | sim        | "S" ou "N" para praia suja
-| envolve_animais | char   | sim        | "S" ou "N" para praia suja
-| id_usuario      | long   | sim        | id do usuário que realizou o relato
-
-```json
-{
-  "relato":"Meu relato é esse",
-  "latitude":1.0,
-  "longitude":1.0,
-  "praia_suja":"S",
-  "envolve_animais":"N",
-  "id_usuario":1
-}
-```
-
-*Códigos de status*
-- 201 criado com sucesso
-- 400 validação falhou
-
----
-DELETE /relato/{id}
-
-Apaga o relato com o 'id' informado.
-
-*Códigos de status*
-- 204 apagado com sucesso
-- 404 id não encontrado
----
-PUT /relato/{id}
-
-Altera o relato com o 'id' informado.
-
-| campo | tipo | obrigatório | descrição 
-|-------|------|-------------|-----------
-| relato          | String | sim        | descrição de um relato 
-| latitude        | double | sim        | número representativo de latitude 
-| longitude       | double | sim        | número representativo de longitude
-
-*Códigos de status*
-- 200 sucesso
-- 404 id não encontrado
-- 400 validação falhou
-
-```json
-{
-  "relato":"Meu Novo Relato atualizado",
-  "latitude":2.0,
-  "longitude":2.0
-}
-```
----
-PATCH /relato/like/{id}
-
-Da um like para o post referenciado.
-
-*Códigos de status*
-- 200 like dado com sucesso
-- 404 id não encontrado
-- 500 erro ao dar like
----
-
-## Link do vídeo de apresentação na nossa Proposta tecnológica: 
-[https://youtu.be/TIfaJ7jkS3M?feature=shared](https://www.youtube.com/watch?v=93IFdxIMHD4)
-
-
-
-
+1.	Cadastro de Usuários
+●	Todos os usuários devem fornecer informações básicas (nome, e-mail, telefone, CPF e senha) para se cadastrar no aplicativo.
+2.	Relato de Condições da Praia
+●	Usuários podem relatar condições ambientais e momentâneas das praias, incluindo acúmulo de lixo, presença de animais marinhos em risco, qualidade da água, entre outros.
+●	Cada relato deve incluir uma descrição textual e pode incluir fotos e a localização geográfica exata.
+3.	Compartilhamento de Localização
+●	Usuários devem permitir o acesso à sua localização geográfica para enviar relatos precisos.
+●	A localização deve ser compartilhada em tempo real apenas durante o envio de um relato e não deve ser armazenada após o envio.
+4.	Feedbacks Públicos
+●	Outros usuários podem apoiar ou não um relato, indicando se concordam com a descrição fornecida.
+●	O número de apoios ou desaprovações deve ser visível publicamente para aumentar a credibilidade dos relatos.
+5.	Ranking de Confiabilidade dos Usuários
+●	Cada usuário terá um ranking de confiabilidade baseado na veracidade de seus relatos e feedbacks.
+●	Usuários com baixa confiabilidade (devido a relatos falsos ou inadequados) podem ser temporariamente suspensos ou banidos.
+6.	Compartilhamento de Dados com Entidades Locais
+●	Todos os dados relatados, incluindo informações do usuário e detalhes do relato, serão compartilhados com entidades locais responsáveis pela preservação ambiental e limpeza pública.
+●	Dados pessoais dos usuários não serão compartilhados publicamente, apenas com as entidades responsáveis.
+●	Relatos devem ser enviados automaticamente para as entidades locais relevantes com base na localização geográfica do relato.
+7.	Segurança e Privacidade
+●	Todas as informações pessoais dos usuários devem ser armazenadas de forma segura.
+## Requisitos Funcionais
+1.	Cadastro de Usuários
+●	O sistema deve permitir que novos usuários se cadastrem fornecendo nome, e-mail, telefone, CPF e senha.
+●	O sistema deve validar os dados fornecidos durante o cadastro (formato do e-mail, CPF válido).
+●	O sistema deve permitir que usuários façam login utilizando CPF e senha cadastrados.
+2.	Relato de Condições da Praia
+●	O sistema deve permitir que usuários relatem condições ambientais e momentâneas das praias.
+●	O sistema deve permitir que usuários incluam uma descrição textual no relato.
+●	O sistema deve permitir o upload de fotos junto com o relato.
+●	O sistema deve capturar e anexar a localização geográfica exata ao relato.
+3.	Compartilhamento de Localização
+●	O sistema deve solicitar permissão para acessar a localização geográfica do usuário.
+●	O sistema deve compartilhar a localização em tempo real apenas durante o envio de um relato.
+●	O sistema não deve armazenar a localização do usuário após o envio do relato.
+4.	Feedbacks Públicos
+●	O sistema deve permitir que outros usuários apoiem ou desaprovem um relato.
+●	O sistema deve exibir o número de apoios e desaprovações publicamente.
+●	O sistema deve recompensar usuários que fornecem feedbacks frequentes e precisos com pontos de confiabilidade.
+5.	Ranking de Confiabilidade dos Usuários
+●	O sistema deve calcular e exibir um nível de confiabilidade para cada usuário.
+●	O sistema deve permitir a suspensão ou banimento temporário de usuários com baixa confiabilidade.
+6.	Compartilhamento de Dados com Entidades Locais
+●	O sistema deve compartilhar todos os dados relatados com entidades locais responsáveis pela preservação ambiental e limpeza pública.
+●	O sistema deve garantir que dados pessoais dos usuários não sejam compartilhados publicamente.
+●	O sistema deve enviar relatos automaticamente para as entidades locais relevantes com base na localização geográfica do relato.
+7.	Segurança e Privacidade
+●	O sistema deve armazenar todas as informações pessoais dos usuários de forma segura.
+## Requisitos Não Funcionais
+1.	Usabilidade
+●	O aplicativo deve ter uma interface amigável e intuitiva para facilitar o uso por cidadãos de todas as idades.
+●	O aplicativo deve ser acessível em múltiplas plataformas (iOS, Android).
+2.	Desempenho
+●	O sistema deve ser capaz de processar e armazenar relatos em tempo real.
+●	O tempo de resposta para envio de relatos e feedbacks deve ser inferior a 2 segundos.
+3.	Escalabilidade
+●	O sistema deve ser escalável para suportar um grande número de usuários simultâneos.
+●	O sistema deve ser capaz de lidar com picos de uso, como durante eventos ambientais significativos.
+4.	Confiabilidade
+●	O sistema deve garantir alta disponibilidade, com um tempo de atividade de pelo menos 99,9%.
+●	O sistema deve ter mecanismos de backup e recuperação de dados.
+5.	Manutenibilidade
+●	O código do sistema deve ser bem documentado para facilitar futuras manutenções e atualizações.
+●	O sistema deve ser modular para permitir a adição de novas funcionalidades sem grandes reestruturações.
